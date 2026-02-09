@@ -42,7 +42,7 @@ inventory.push(
 
 let removedProduct = inventory.pop();//removing last product
 
-console.log(`removed product: $(removedProduct.name)`);
+console.log(`removed product: ${removedProduct.name}`);
 
 //check 
 console.log(inventory);
@@ -72,9 +72,38 @@ let orders = [
         ]
     }
 ];
- 
-orders.forEach(function(order) {
-let enoughStock = true;
-let shortSku = "";
+ //step 4
+ function processOrder(order) {
 
+ 
+ orders.forEach(function(order){
+    order.items.forEach(function(item)
+    {
+        inventory.forEach(function(product) {
+            if (product.sku === item.sku) {
+                if (product.stock >= item.qty) {
+                    product.stock = product.stock - item.qty;
+                    console.log (`order number processed ${order.orderId}`)
+ } else {
+    console.log(`cannot process order ${product.name}`);
+ }
+            }
+        });
+    });
 });
+ }
+ 
+//step 5
+
+let totalIventoryValue = inventory.reduce((sum, p) => sum + (p.price * p.stock),0
+);
+console.log(totalIventoryValue);
+
+let lowStock = inventory.filter( p=> p.stock <= 5
+
+);
+console.log(lowStock);
+
+let priceList = inventory.map(p => p.sku + " - $" + p.price );
+
+console.log(priceList);
